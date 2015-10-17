@@ -64,8 +64,5 @@
            android:background="@drawable/login_button"
            />
    </LinearLayout>
-   <LinearLayout
-       android:layout_weight=""
-       android:layout_height=""
-       />
+
 </LinearLayout>
