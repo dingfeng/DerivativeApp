@@ -6,4 +6,7 @@
     <string name="password_hint">请输入密码</string>
     <string name="sign_in">登  录</string>
     <string name="register">注  册</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="open_drawlayout">Open Drawlayout</string>
+    <string name="close_drawlayout">Close Drawlayout</string>
 </resources>

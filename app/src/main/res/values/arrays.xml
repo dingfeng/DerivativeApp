@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name = "mainOptions">
+        <item>普通期权</item>
+        <item>二元期权</item>
+        <item>回望期权</item>
+        <item>亚式期权</item>
+        <item>障碍期权</item>
+    </string-array>
+    <string-array name = "binaryOption">
+        <item>资产或无价值期权</item>
+        <item>现金或无价值期权</item>
+    </string-array>
+    <string-array name = "lookBackOption">
+        <item>浮动执行价格期权</item>
+        <item>固定执行价格期权</item>
+    </string-array>
+    <string-array name = "asianOption">
+        <item>平均价格期权</item>
+        <item>平均执行价格期权</item>
+    </string-array>
+    <string-array name = "obstacleOption">
+        <item>向上敲出期权</item>
+        <item>向下敲出期权</item>
+        <item>向下敲入期权</item>
+        <item>向下敲入期权</item>
+    </string-array>
+</resources>
