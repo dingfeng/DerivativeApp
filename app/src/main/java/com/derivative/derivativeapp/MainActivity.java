@@ -46,7 +46,7 @@ public class MainActivity extends ActionBarActivity {
         drawerLayout = (DrawerLayout) findViewById(R.id.my_drawer_layout);
         drawerLayout.setStatusBarBackgroundColor(Color.parseColor("#FF0000"));
         toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
-        toolbar.setTitle("期权衍生品组合商品交易");
+        toolbar.setTitle("高级衍生品做市与组合管理系统");
         setSupportActionBar(toolbar);
 
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawlayout, R.string.close_drawlayout);

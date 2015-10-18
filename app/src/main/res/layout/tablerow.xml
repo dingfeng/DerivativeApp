@@ -4,14 +4,14 @@
         android:id="@+id/column1"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:textSize="20sp"
+        android:textSize="@dimen/order_confirm_font_size"
         android:padding="6dp"
         />
     <TextView
         android:id="@+id/column2"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:textSize="20sp"
+        android:textSize="@dimen/order_confirm_font_size"
         android:padding="6dp"
         />
 </TableRow>

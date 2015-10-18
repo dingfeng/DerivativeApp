@@ -1,28 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name = "mainOptions">
-        <item>普通期权</item>
-        <item>二元期权</item>
-        <item>回望期权</item>
-        <item>亚式期权</item>
-        <item>障碍期权</item>
+     <string-array name = "trade_table_header">
+         <item>期权种类</item>
+         <item>类型</item>
+         <item>成交时间</item>
+         <item>期限</item>
+         <item>买/卖</item>
+         <item>数量</item>
+         <item>交易价格</item>
+         <item>平仓/开仓</item>
+     </string-array>
+    <string-array name = "hold_table_header">
+        <item>期权种类</item>
+        <item>类型</item>
+        <item>执行价格</item>
+        <item>期限</item>
+        <item>成本</item>
+        <item>实时价格</item>
+        <item>盈亏量</item>
+        <item>买/卖</item>
+        <item>数量</item>
+        <item>平仓操作</item>
     </string-array>
-    <string-array name = "binaryOption">
-        <item>资产或无价值期权</item>
-        <item>现金或无价值期权</item>
+    <string-array name = "order_item_array">
+        <item>订单编号：</item>
+        <item>客户账号：</item>
+        <item>期权名称：</item>
+        <item>期权类型：</item>
+        <item>交易类型：</item>
+        <item>交易形式：</item>
+        <item>执行价格：</item>
+        <item>交易价格：</item>
+        <item>交易手数：</item>
+        <item>交易时间：</item>
+        <item>截至日期：</item>
+        <item>到期时间：</item>
     </string-array>
-    <string-array name = "lookBackOption">
-        <item>浮动执行价格期权</item>
-        <item>固定执行价格期权</item>
-    </string-array>
-    <string-array name = "asianOption">
-        <item>平均价格期权</item>
-        <item>平均执行价格期权</item>
-    </string-array>
-    <string-array name = "obstacleOption">
-        <item>向上敲出期权</item>
-        <item>向下敲出期权</item>
-        <item>向下敲入期权</item>
-        <item>向下敲入期权</item>
+    <string-array name = "testcase_example">
+        <item>0D00015549</item>
+        <item>131250095</item>
+        <item>二元期权-资产或无价值期权</item>
+        <item>看跌-美式</item>
+        <item>开仓</item>
+        <item>卖出</item>
+        <item>12.0</item>
+        <item>0.0</item>
+        <item>12</item>
+        <item>2015-10-18 15：01：02</item>
+        <item>2015-10-24</item>
+        <item>6天</item>
     </string-array>
 </resources>

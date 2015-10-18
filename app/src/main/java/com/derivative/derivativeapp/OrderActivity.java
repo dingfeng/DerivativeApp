@@ -8,8 +8,6 @@ import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 
 public class OrderActivity extends ActionBarActivity {
     TableLayout tableLayout;
@@ -19,17 +17,10 @@ public class OrderActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
         tableLayout = (TableLayout) findViewById(R.id.orderTable);
-        for (int i = 0; i < 10; ++i)
-        {
-          View view = getLayoutInflater().inflate(R.layout.tablerow,null);
-            TextView orderItem = (TextView)view.findViewById(R.id.column1);
-            TextView orderData = (TextView)view.findViewById(R.id.column2);
-            orderItem.setText("日期：");
-            orderData.setText("2015年9月1号");
-            tableLayout.addView(view);
-        }
+        setOrderItems();
         String[] orderDataExample = getResources().getStringArray(R.array.testcase_example);
         updateOrder(orderDataExample);
+
     }
 
     private void setOrderItems()

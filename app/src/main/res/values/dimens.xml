@@ -5,4 +5,5 @@
     <dimen name="login_editview_margin">20dp</dimen>
     <dimen name="login_between_editview_vertical">20dp</dimen>
     <dimen name="login_button_vertical">15dp</dimen>
+    <dimen name= "order_confirm_font_size">20sp</dimen>
 </resources>

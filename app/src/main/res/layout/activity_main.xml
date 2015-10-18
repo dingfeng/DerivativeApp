@@ -12,11 +12,19 @@
         android:orientation="vertical">
         <android.support.v7.widget.Toolbar
             android:id="@+id/my_awesome_toolbar"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_width="match_parent"
+            android:layout_weight="1"
             android:minHeight="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             />
+            <fragment
+                android:name = "com.derivative.derivativeapp.TableFragment"
+                android:id="@+id/main_fragment"
+                android:layout_height="0dp"
+                android:layout_weight="10"
+                android:layout_width="match_parent"
+                />
     </LinearLayout>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id = "@+id/rightLayout"

@@ -16,33 +16,6 @@
     <string name ="datechoose">选择日期:</string>
     <string name = "confirmOrder">下单确认</string>
     <string name="title_activity_order">OrderActivity</string>
-    <string-array name = "order_item_array">
-        <item>订单编号：</item>
-        <item>客户账号：</item>
-        <item>期权名称：</item>
-        <item>期权类型：</item>
-        <item>交易类型：</item>
-        <item>交易形式：</item>
-        <item>执行价格：</item>
-        <item>交易价格：</item>
-        <item>交易手数：</item>
-        <item>交易时间：</item>
-        <item>截至日期：</item>
-        <item>到期时间：</item>
-    </string-array>
-    <string-array name = "testcase_example">
-        <item>0D00015549</item>
-        <item>131250095</item>
-        <item>二元期权-资产或无价值期权</item>
-        <item>看跌-美式</item>
-        <item>开仓</item>
-        <item>卖出</item>
-        <item>12.0</item>
-        <item>0.0</item>
-        <item>12</item>
-        <item>2015-10-18 15：01：02</item>
-        <item>2015-10-24</item>
-        <item>6天</item>
-    </string-array>
+
 
 </resources>
