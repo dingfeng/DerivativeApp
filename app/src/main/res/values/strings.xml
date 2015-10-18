@@ -9,4 +9,9 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="open_drawlayout">Open Drawlayout</string>
     <string name="close_drawlayout">Close Drawlayout</string>
+    <string name="updown">涨跌:</string>
+    <string name= "EA">欧美:</string>
+    <string name="excutePrice">执行价格:</string>
+    <string name="ddl">截至日期:</string>
+    <string name ="datechoose">选择日期:</string>
 </resources>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id= "@+id/trade_scroll_view"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    >
+<TableLayout
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    >
+    <TableRow>
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/updown"
+            android:textSize="20sp"
+            android:padding="10dp"
+            />
+        <RadioGroup
+            android:id="@+id/rgud"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            >
+            <RadioButton
+                android:id = "@+id/up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="看涨"
+                android:textSize="20sp"
+                android:padding="10dp"
+
+                />
+            <RadioButton
+                android:id = "@+id/down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text = "看跌"
+                android:textSize="20sp"
+                android:padding="10dp"
+                />
+        </RadioGroup>
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/EA"
+            android:textSize="20sp"
+            android:padding="10dp"
+
+            />
+        <RadioGroup
+            android:id="@+id/rgea"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            >
+            <RadioButton
+                android:id = "@+id/e"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="欧式"
+                android:textSize="20sp"
+                android:padding="10dp"
+                />
+            <RadioButton
+                android:id = "@+id/a"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text = "美式"
+                android:textSize="20sp"
+                android:padding="10dp"
+                />
+        </RadioGroup>
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/excutePrice"
+            android:textSize="20sp"
+            android:padding="10dp"
+            />
+        <EditText
+            android:id="@+id/executePirceText"
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:maxLength="20"
+            android:lines="1"
+            >
+        </EditText>
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/ddl"
+            android:textSize="20sp"
+            android:padding="10dp"
+
+            />
+
+    </TableRow>
+        <DatePicker android:id="@+id/datePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:startYear="2000"
+            android:endYear="2050"
+            android:calendarViewShown="false"
+            android:spinnersShown="true"
+            />
+    <TableRow>
+        <Button
+            android:id = "@+id/searchButton"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="查询"
+            android:textSize="20sp"
+            android:padding="10dp"
+            />
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="买价"
+            android:textSize="20sp"
+            android:padding="10dp"
+            />
+        <TextView
+            android:id="@+id/buyPrice"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="等待查询"
+            android:textSize="20sp"
+            android:padding="10dp"
+            />
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="卖价"
+            android:textSize="20sp"
+            android:padding="10dp"
+            />
+        <TextView
+            android:id="@+id/sellPrice"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="等待查询"
+            android:textSize="20sp"
+            android:padding="10dp"
+            />
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="出入"
+            android:textSize="20sp"
+            android:padding="10dp"
+            />
+        <RadioGroup
+            android:id="@+id/rginout"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            >
+            <RadioButton
+                android:id = "@+id/rbBuy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="买入"
+                android:textSize="20sp"
+                android:padding="10dp"
+
+                />
+            <RadioButton
+                android:id = "@+id/rbSell"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text = "卖出"
+                android:textSize="20sp"
+                android:padding="10dp"
+                />
+        </RadioGroup>
+    </TableRow>
+    <TableRow>
+        <Button
+            android:id= "@+id/tradeButton"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="交易"
+            android:textSize="20sp"
+            android:padding="10dp"
+            />
+    </TableRow>
+   </TableLayout>
+</ScrollView>

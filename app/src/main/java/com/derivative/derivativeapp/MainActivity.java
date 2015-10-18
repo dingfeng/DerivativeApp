@@ -38,7 +38,8 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.fragment_trade_layout);
+      /*  setContentView(R.layout.activity_main);
         rightLayout = findViewById(R.id.rightLayout);
         leftLayout = findViewById(R.id.leftLayout);
         drawerLayout = (DrawerLayout) findViewById(R.id.my_drawer_layout);
@@ -116,10 +117,9 @@ public class MainActivity extends ActionBarActivity {
 
             }
         });
-
+*/
 
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
