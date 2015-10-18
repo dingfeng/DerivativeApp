@@ -16,9 +16,9 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 public class TreeViewAdapter extends BaseExpandableListAdapter{
-    public static final int ItemHeight=48;//Ã¿ÏîµÄ¸ß¶È
-    public static final int PaddingLeft=10;//Ã¿ÏîµÄ¸ß¶È
-    private int myPaddingLeft=0;//Èç¹ûÊÇÓÉSuperTreeViewµ÷ÓÃ£¬Ôò×÷Îª×ÓÏîÐèÒªÍùÓÒÒÆ
+    public static final int ItemHeight=48;//Ã¿ï¿½ï¿½Ä¸ß¶ï¿½
+    public static final int PaddingLeft=10;//Ã¿ï¿½ï¿½Ä¸ß¶ï¿½
+    private int myPaddingLeft=0;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½SuperTreeViewï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
     static public class TreeNode{
         Object parent;
@@ -27,6 +27,7 @@ public class TreeViewAdapter extends BaseExpandableListAdapter{
 
     List<TreeNode> treeNodes = new ArrayList<TreeNode>();
     Context parentContext;
+
 
     public TreeViewAdapter(Context view,int myPaddingLeft) {
         parentContext=view;
@@ -50,7 +51,7 @@ public class TreeViewAdapter extends BaseExpandableListAdapter{
     }
 
     public int getChildrenCount(int groupPosition) {
-        if (groupPosition == 0) return 0;//ÆÕÍ¨ÆÚÈ¨Ã»ÓÐ×ÓÆÚÈ¨
+        if (groupPosition == 0) return 0;//ï¿½ï¿½Í¨ï¿½ï¿½È¨Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¨
         return treeNodes.get(groupPosition).childs.size();
     }
 
