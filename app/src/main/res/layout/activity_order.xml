@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="@string/confirmOrder"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:background="@color/darkslateblue"
+        />
+    <HorizontalScrollView
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:layout_width="match_parent"
+
+        >
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id= "@+id/trade_scroll_view"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        >
+        <TableLayout
+            android:id = "@+id/orderTable"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            >
+        </TableLayout>
+    </ScrollView>
+    </HorizontalScrollView>
+    <LinearLayout
+        android:gravity="bottom"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="确认"
+            android:textSize="20sp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/order_button"
+            />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="取消"
+            android:textSize="20sp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/order_button"
+            android:layout_marginLeft="1dp"
+            />
+    </LinearLayout>
+</LinearLayout>
