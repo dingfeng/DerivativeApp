@@ -1,6 +1,4 @@
 package com.derivative.derivativeapp;
-
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,7 +15,6 @@ import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
 
 /**
  * Created by FD on 2015/10/18.

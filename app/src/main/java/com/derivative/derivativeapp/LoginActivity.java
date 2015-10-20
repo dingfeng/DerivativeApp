@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.derivative.derivativeapp.R;
 
 
 public class LoginActivity extends Activity {
