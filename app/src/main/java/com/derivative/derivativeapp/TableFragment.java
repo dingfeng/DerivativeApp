@@ -25,10 +25,10 @@ public class TableFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (getArguments().containsKey(ITEM_ID) && getArguments().containsKey(RECORD_TYPE)) {
-//            option = getArguments().getString(ITEM_ID);
-//            record = getArguments().getString(RECORD_TYPE);
-//        }
+        if (getArguments().containsKey(ITEM_ID) && getArguments().containsKey(RECORD_TYPE)) {
+            option = getArguments().getString(ITEM_ID);
+            record = getArguments().getString(RECORD_TYPE);
+        }
     }
 
     //异步加载数据

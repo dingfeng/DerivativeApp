@@ -36,6 +36,21 @@
         <item>截至日期：</item>
         <item>到期时间：</item>
     </string-array>
+
+    <string-array name = "user_info_array">
+        <item>姓名：</item>
+        <item>账户：</item>
+        <item>联系方式：</item>
+        <item>联系地址：</item>
+        <item>权限等级：</item>
+        <item>客户权益：</item>
+        <item>可用资金：</item>
+        <item>保证金：</item>
+        <item>权利金：</item>
+        <item>期权市值：</item>
+    </string-array>
+
+
     <string-array name = "testcase_example">
         <item>0D00015549</item>
         <item>131250095</item>
@@ -50,4 +65,5 @@
         <item>2015-10-24</item>
         <item>6天</item>
     </string-array>
+
 </resources>

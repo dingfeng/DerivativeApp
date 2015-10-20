@@ -16,6 +16,6 @@
     <string name ="datechoose">选择日期:</string>
     <string name = "confirmOrder">下单确认</string>
     <string name="title_activity_order">OrderActivity</string>
-
-
+    <string name="user_info">用户信息</string>
+    <string name="request_higher_authority">申请更高权限</string>
 </resources>
