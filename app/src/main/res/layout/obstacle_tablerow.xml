@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+<TextView
+    android:id = "@+id/column1"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:text="@string/obstacle_level"
+    android:textSize="20sp"
+    android:padding="10dp"
+    />
+<EditText
+    android:id="@+id/column2"
+    android:textSize="20sp"
+    android:padding="10dp"
+    android:maxLength="20"
+    android:lines="1"
+    >
+</EditText>
+</TableRow>

@@ -101,11 +101,11 @@ public class MainActivity extends ActionBarActivity {
                 if (!choice.equals(rightMenuOption)) {
                     rightMenuOption = choice;
                     if (leftMenuOption.equals("用户交易")) {
-                        toolbar.setSubtitle("用户交易-" + rightMenuOption);
+                       toTradeFragment();
                     }
+                    drawerLayout.closeDrawer(rightLayout);
                     updateTable();
                 }
-                drawerLayout.closeDrawer(rightLayout);
                 return false;
             }
         });
@@ -119,14 +119,13 @@ public class MainActivity extends ActionBarActivity {
                     if (!choice.equals(rightMenuOption)) {
                         rightMenuOption = choice;
                         if (leftMenuOption.equals("用户交易")) {
-                            toolbar.setSubtitle("用户交易-" + rightMenuOption);
+                            toTradeFragment();
                         }
-
+                        drawerLayout.closeDrawer(rightLayout);
                         updateTable();
                     }
-
                 }
-                drawerLayout.closeDrawer(rightLayout);
+
                 return false;
             }
         });
@@ -211,6 +210,15 @@ public class MainActivity extends ActionBarActivity {
         tableFragment = new TableFragment();
         tradeFragment = new TradeFragment();
         fragmentManager = getSupportFragmentManager();
+
+        //初始化中心主界面 用户交易-普通期权
+        leftMenuOption = "用户交易";
+        rightMenuOption = "普通期权";
+        toolbar.setSubtitle(leftMenuOption + "-" + rightMenuOption);
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.main_container, tradeFragment);
+        fragmentTransaction.commit();
+
     }
 
     @Override
@@ -239,5 +247,17 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
+
+    private void toTradeFragment()
+    {
+        toolbar.setSubtitle("用户交易-" + rightMenuOption);
+        tradeFragment = new TradeFragment();
+        Bundle arguments = new Bundle();
+        arguments.putString(TradeFragment.OPTION_NAME,rightMenuOption);
+        tradeFragment.setArguments(arguments);
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.main_container, tradeFragment);
+        fragmentTransaction.commit();
+    }
 
 }

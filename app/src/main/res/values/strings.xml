@@ -18,4 +18,5 @@
     <string name="title_activity_order">OrderActivity</string>
     <string name="user_info">用户信息</string>
     <string name="request_higher_authority">申请更高权限</string>
+    <string name = "obstacle_level">障碍水平</string>
 </resources>
