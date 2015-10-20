@@ -2,6 +2,7 @@ package com.derivative.derivativeapp;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.*;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
-import android.widget.TableLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -36,11 +36,11 @@ public class MainActivity extends ActionBarActivity {
     private View leftLayout;
     private TreeViewAdapter notAllAdapter;
     private TreeViewAdapter allAdapter;
+    private FragmentManager fragmentManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-       setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main);
         rightLayout = findViewById(R.id.rightLayout);
         leftLayout = findViewById(R.id.leftLayout);
         drawerLayout = (DrawerLayout) findViewById(R.id.my_drawer_layout);
@@ -118,8 +118,11 @@ public class MainActivity extends ActionBarActivity {
 
             }
         });
-
-
+//        Fragment fragment = new TableFragment();
+//        fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.add(R.id.main_container,fragment);
+//        fragmentTransaction.commit();
     }
 
     @Override

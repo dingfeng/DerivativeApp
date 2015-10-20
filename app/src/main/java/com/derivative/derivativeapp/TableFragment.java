@@ -3,6 +3,7 @@ package com.derivative.derivativeapp;
 
 import android.os.Bundle;
 import android.support.v4.app.*;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ import android.widget.TextView;
 public class TableFragment extends Fragment {
     public static final String RECORD_TYPE = "record";
     public static final String ITEM_ID = "option";
-    private String record;
+    private String record = "交易记录";
     private String option;
     private LayoutInflater inflater;
     private String[][] content;
@@ -24,10 +25,10 @@ public class TableFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments().containsKey(ITEM_ID) && getArguments().containsKey(RECORD_TYPE)) {
-            option = getArguments().getString(ITEM_ID);
-            record = getArguments().getString(RECORD_TYPE);
-        }
+//        if (getArguments().containsKey(ITEM_ID) && getArguments().containsKey(RECORD_TYPE)) {
+//            option = getArguments().getString(ITEM_ID);
+//            record = getArguments().getString(RECORD_TYPE);
+//        }
     }
 
     //异步加载数据
@@ -38,6 +39,7 @@ public class TableFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_trade_record, container, false);
         TableLayout table = (TableLayout) rootView.findViewById(R.id.orderTable);
+        this.inflater = inflater;
         if(record.equals("交易记录"))
         {
           //交易记录的表头
