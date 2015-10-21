@@ -44,6 +44,7 @@
            android:textSize="20sp"
            />
        <Button
+           android:id = "@+id/signin_button"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:text="@string/sign_in"
@@ -52,8 +53,10 @@
            android:textSize="30sp"
            android:layout_marginTop="@dimen/login_between_editview_vertical"
            android:background="@drawable/login_button"
+           android:onClick="button_click"
            />
        <Button
+           android:id = "@+id/register_button"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:text="@string/register"
@@ -62,6 +65,8 @@
            android:layout_marginTop="@dimen/login_button_vertical"
            android:textSize="30sp"
            android:background="@drawable/login_button"
+           android:onClick="button_click"
+           android:enabled="false"
            />
    </LinearLayout>
 

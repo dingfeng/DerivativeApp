@@ -45,6 +45,7 @@ public class MainActivity extends ActionBarActivity {
     private UserInfoFragment userInfoFragment;
     private TradeFragment tradeFragment;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -241,6 +242,11 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public String getRightMenuOption()
+    {
+        return rightMenuOption;
     }
 
     private void updateTable() {
