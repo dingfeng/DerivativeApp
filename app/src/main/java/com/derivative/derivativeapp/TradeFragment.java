@@ -24,8 +24,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import bl.TradeInfo;
@@ -109,7 +107,10 @@ public class TradeFragment extends Fragment implements View.OnClickListener{
        if (v.getId() == R.id.searchButton)
        {
            //查询按钮触发事件
-           testChoose();
+           //初始化查询结果显示
+           textView_buyPrice.setText("正在查询...");
+           textView_sellPrice.setText("正在查询...");
+           testSearchChoose();
            if (totalValid)
            {
              //测试通过开始查询
@@ -184,16 +185,23 @@ public class TradeFragment extends Fragment implements View.OnClickListener{
        }
     }
 
-    private void testChoose()
+    public void tryBeginTrade()
+    {
+        testSearchChoose();
+        if (totalValid)
+        {
+            //开始交易倒计时
+            beginTrade();
+        }
+    }
+    private void testSearchChoose()
     {
         testExecutePriceText();
-        testObstacleLevel();
+        testDate();
         if (obstacleLevel != null)
         {
             testObstacleLevel();
         }
-
-
     }
     private void testExecutePriceText()
     {
@@ -268,6 +276,12 @@ public class TradeFragment extends Fragment implements View.OnClickListener{
                   int count = message.getData().getInt("count_down");
                   tradeButton.setText("交易("+count+")");
               }
+              else if (message.what == MessageNum.TRADE_COUNT_DOWN_END)
+              {
+                  //倒计时结束 交易按钮不可点击
+                  tradeButton.setEnabled(false);
+              }
+
           }
       };
 
@@ -286,6 +300,7 @@ public class TradeFragment extends Fragment implements View.OnClickListener{
                     }
                 }
                 sendMessageWithCount(count);
+                stopCountDown();
                 Looper.loop();
             }
 
@@ -298,9 +313,15 @@ public class TradeFragment extends Fragment implements View.OnClickListener{
                 mess.setData(bundle);
                 count_down_handler.sendMessage(mess);
             }
+
+            private void stopCountDown()
+            {
+                count_down_handler.sendEmptyMessage(MessageNum.TRADE_COUNT_DOWN_END);
+            }
         }.start();
 
     }
+
 
 
 

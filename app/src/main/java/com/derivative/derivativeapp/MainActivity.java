@@ -254,6 +254,11 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
+    public TradeFragment getTradeFragment()
+    {
+        return this.tradeFragment;
+    }
+
     private void toTradeFragment()
     {
         toolbar.setSubtitle("用户交易-" + rightMenuOption);

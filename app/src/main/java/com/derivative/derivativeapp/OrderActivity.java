@@ -1,5 +1,9 @@
 package com.derivative.derivativeapp;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,8 +14,10 @@ import android.widget.TextView;
 
 
 public class OrderActivity extends ActionBarActivity {
-    TableLayout tableLayout;
-    String[] orderItems;
+    private  TableLayout tableLayout;
+    private  String[] orderItems;
+    private  ProgressDialog pdialog;
+    private  Handler handler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,26 +53,69 @@ public class OrderActivity extends ActionBarActivity {
         }
     }
 
+    public void button_click(View view)
+    {
+        int buttonId = view.getId();
+        if (buttonId == R.id.confirmButton)
+        {
+            //确认
+            handler = new Handler(){
+              @Override
+            public void handleMessage(Message mess)
+              {
+                  AlertDialog.Builder builder = new AlertDialog.Builder(OrderActivity.this);
+                  builder.setTitle("提交结果").setIcon(R.drawable.hi_icon);
+                  if (mess.what == MessageNum.TRADE_COMMIT_SUCCESS)
+                  {
+                      //提交成功
+                      builder.setMessage("提交成功！");
+                  }
+                  else if (mess.what == MessageNum.TRADE_COMMIT_FAILURE)
+                  {
+                      //提交失败
+                     builder.setMessage("提交失败！");
+                  }
+              }
+            };
+        }
+        else if (buttonId == R.id.cancelButton)
+        {
+            //取消
+        }
+    }
+
+    //显示进度条
+    private  void showProgressBar()
+    {
+        pdialog = new ProgressDialog(this);
+        //进度条为环状进度条
+        pdialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        //进度条不显示进度
+        pdialog.setIndeterminate(false);
+        pdialog.show();
+    }
+
+    //去除进度条
+    private void removeProgressBar()
+    {
+      pdialog.dismiss();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_order, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

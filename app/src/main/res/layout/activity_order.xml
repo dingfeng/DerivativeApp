@@ -39,6 +39,7 @@
         android:orientation="horizontal"
         >
         <Button
+            android:id = "@+id/confirmButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -46,8 +47,10 @@
             android:textSize="20sp"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/order_button"
+            android:onClick="button_click"
             />
         <Button
+            android:id = "@+id/cancelButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -56,6 +59,7 @@
             android:layout_gravity="center_horizontal"
             android:background="@drawable/order_button"
             android:layout_marginLeft="1dp"
+            android:onClick="button_click"
             />
     </LinearLayout>
 </LinearLayout>
