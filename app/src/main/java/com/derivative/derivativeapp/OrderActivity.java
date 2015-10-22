@@ -2,6 +2,8 @@ package com.derivative.derivativeapp;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
@@ -18,6 +20,8 @@ public class OrderActivity extends ActionBarActivity {
     private  String[] orderItems;
     private  ProgressDialog pdialog;
     private  Handler handler;
+    private AlertDialog.Builder builder;
+    private boolean success = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,31 +63,60 @@ public class OrderActivity extends ActionBarActivity {
         if (buttonId == R.id.confirmButton)
         {
             //确认
+            showProgressBar();
             handler = new Handler(){
               @Override
             public void handleMessage(Message mess)
               {
-                  AlertDialog.Builder builder = new AlertDialog.Builder(OrderActivity.this);
+                  removeProgressBar();
+                  builder = new AlertDialog.Builder(OrderActivity.this);
                   builder.setTitle("提交结果").setIcon(R.drawable.hi_icon);
                   if (mess.what == MessageNum.TRADE_COMMIT_SUCCESS)
                   {
                       //提交成功
                       builder.setMessage("提交成功！");
+                      success = true;
                   }
                   else if (mess.what == MessageNum.TRADE_COMMIT_FAILURE)
                   {
                       //提交失败
                      builder.setMessage("提交失败！");
+                      success = false;
                   }
+                  builder = setPositiveButton(builder);
+                  builder.create().show();
+
               }
             };
         }
         else if (buttonId == R.id.cancelButton)
         {
             //取消
+            toMainActivity();
         }
     }
 
+    //从订单确认界面 跳转回主界面
+    private void toMainActivity()
+    {
+        Intent intent = getIntent();
+        intent.putExtra("result",success);
+        this.setResult(0,intent);
+        this.finish();
+    }
+
+    //设置确定按钮
+    private AlertDialog.Builder setPositiveButton(AlertDialog.Builder builder)
+    {
+        return builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //跳转回主界面
+                //to MainActivity
+                toMainActivity();
+            }
+        });
+    }
     //显示进度条
     private  void showProgressBar()
     {

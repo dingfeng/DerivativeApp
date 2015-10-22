@@ -1,5 +1,6 @@
 package com.derivative.derivativeapp;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.*;
@@ -27,7 +28,7 @@ public class MainActivity extends ActionBarActivity {
     private String[] groups = {"全部", "普通期权", "二元期权", "回望期权", "亚式期权", "障碍期权"};
     private String[][] child = {{"全部"}, {"普通期权"}, {"资产或无价值期权", "现金或无价值期权"}, {"浮动执行价格期权", "固定执行价格期权"}, {"平均价格期权",
             "平均执行价格期权"}, {"向上敲入期权", "向上敲出期权", "向下敲入期权", "向下敲出期权"}};
-    private String[] leftMenuItems = {"注销登录", "用户信息", "用户交易", "交易记录", "持仓记录"};
+    private String[] leftMenuItems = {"注销登录", "用户信息", "用户交易", "交易记录", "持仓记录","沪深300"};
     private View layout;
     private ArrayList<String> list;
     private ActionBarDrawerToggle actionBarDrawerToggle;
@@ -142,13 +143,14 @@ public class MainActivity extends ActionBarActivity {
                 drawerLayout.closeDrawer(leftLayout);
                 if (choiceNum == 0) {
                     //注销登陆
-                    toolbar.setSubtitle("注销登录");
-                    leftMenuOption = "注销登录";
-                    drawerLayout.removeView(rightLayout);
+                    Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                    startActivity(intent);
+                   finish();
                 } else if (choiceNum == 1) {
                     //用户信息
                     toolbar.setSubtitle("用户信息");
                     leftMenuOption = "用户信息";
+                    if (drawerLayout.findViewById(R.id.rightLayout) != null)
                     drawerLayout.removeView(rightLayout);
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.main_container, userInfoFragment);
@@ -202,6 +204,15 @@ public class MainActivity extends ActionBarActivity {
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.main_container, tableFragment);
                     fragmentTransaction.commit();
+                }else if(choiceNum == 5)
+                {
+                    if (drawerLayout.findViewById(R.id.rightLayout) != null)
+                    {
+                        drawerLayout.removeView(rightLayout);
+                    }
+                    toolbar.setSubtitle("沪深300");
+                    leftMenuOption = "沪深300";
+
                 }
 
 
@@ -216,27 +227,17 @@ public class MainActivity extends ActionBarActivity {
         leftMenuOption = "用户交易";
         rightMenuOption = "普通期权";
         toolbar.setSubtitle(leftMenuOption + "-" + rightMenuOption);
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.main_container, tradeFragment);
-        fragmentTransaction.commit();
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        // getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -271,4 +272,23 @@ public class MainActivity extends ActionBarActivity {
         fragmentTransaction.commit();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent)
+    {
+        if (requestCode == 0 && resultCode == 0)
+        {
+          //  boolean result = intent.getExtras().getBoolean("result");
+
+        }
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        tradeFragment = new TradeFragment();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.main_container, tradeFragment);
+        fragmentTransaction.commit();
+    }
 }

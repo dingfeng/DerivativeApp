@@ -1,11 +1,14 @@
 package com.derivative.derivativeapp;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +27,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.concurrent.TimeUnit;
 
 import bl.TradeInfo;
@@ -37,6 +42,7 @@ public class TradeFragment extends Fragment implements View.OnClickListener{
     public final static String OPTION_NAME = "option_name";
     public final static  int TRADE_TIME_LIMIT = 30;
     private String optionName;
+    private View rootView;
     private RadioGroup radioGroup_rgud;
     private RadioButton radioButton_up;
     private RadioButton radioButton_down;
@@ -53,8 +59,17 @@ public class TradeFragment extends Fragment implements View.OnClickListener{
     private TableLayout tableLayout;
     private EditText obstacleLevel;
     private ScrollView scrollView;
-    private boolean totalValid;
+    private RadioButton buyRadio;
+    private RadioButton sellRadio;
+    private TextView totalView;
+    private  EditText  amountText;
+    private boolean totalValid = true;
     private Handler count_down_handler;
+    private double sellPrice;
+    private double buyPrice;
+    private TradeTask task;
+    private boolean isCountDownAble = true;
+    private Queue<Thread> countDownThread;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +84,7 @@ public class TradeFragment extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_trade_layout, container, false);
+        rootView = inflater.inflate(R.layout.fragment_trade_layout, container, false);
         scrollView = (ScrollView)rootView.findViewById(R.id.trade_scroll_view);
         tableLayout = (TableLayout) rootView.findViewById(R.id.trade_table);
         radioGroup_rgud = (RadioGroup) rootView.findViewById(R.id.rgud);
@@ -84,6 +99,33 @@ public class TradeFragment extends Fragment implements View.OnClickListener{
         textView_sellPrice= (TextView) rootView.findViewById(R.id.sellPrice);
         searchButton = (Button) rootView.findViewById(R.id.searchButton);
         tradeButton = (Button) rootView.findViewById(R.id.tradeButton);
+        totalView = (TextView) rootView.findViewById(R.id.totalPrice);
+        buyRadio = (RadioButton) rootView.findViewById(R.id.rbBuy);
+        sellRadio = (RadioButton) rootView.findViewById(R.id.rbSell);
+        amountText = (EditText) rootView.findViewById(R.id.trade_amount);
+        amountText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                String amountStr = v.getText().toString();
+                boolean valid = true;
+                try {
+                    int amount = Integer.parseInt(amountStr);
+                    if (amount <= 0)
+                    {
+                        valid = false;
+                    }
+                }catch (Exception e)
+                {
+                    valid = false;
+                }
+                if (valid)
+                {
+                    //填写数量符合规范
+                    updateTotalPrice();
+                }
+                return false;
+            }
+        });
         searchButton.setOnClickListener(this);
         tradeButton.setOnClickListener(this);
 
@@ -116,8 +158,6 @@ public class TradeFragment extends Fragment implements View.OnClickListener{
              //测试通过开始查询
              // 滚动条滑倒最下面
                MainActivity activity = (MainActivity)getActivity();
-               scrollView.fullScroll(View.FOCUS_DOWN);
-
                String optionName = activity.getRightMenuOption();
                upORdown upordown = upORdown.up;
                if (radioButton_up.isChecked())
@@ -159,7 +199,11 @@ public class TradeFragment extends Fragment implements View.OnClickListener{
                } catch (ParseException e) {
                    e.printStackTrace();
                }
-               TradeTask task = new TradeTask(activity,textView_buyPrice,textView_sellPrice);
+               if (task != null && task.getStatus() != AsyncTask.Status.FINISHED)
+               {
+                   task.cancel(true);
+               }
+               task = new TradeTask(activity,textView_buyPrice,textView_sellPrice);
                TradeInfo tradeInfo = null;
                if (optionName.startsWith("向"))
                {
@@ -174,15 +218,45 @@ public class TradeFragment extends Fragment implements View.OnClickListener{
                    tradeInfo = new TradeInfo(optionName,eora, upordown, executePrice, date);
                }
                task.execute(tradeInfo);
+               tradeButton.setFocusable(true);
+               tradeButton.setFocusableInTouchMode(true);
+               tradeButton.requestFocus();
+               tradeButton.requestFocusFromTouch();
+               scrollView.fullScroll(View.FOCUS_DOWN);
            }
 
        }
        else if (v.getId() == R.id.tradeButton)
        {
            //交易按钮被触发事件
-           Intent intent = new Intent(activity,OrderActivity.class);
-           activity.startActivity(intent);
+           testSearchChoose();
+           testAmount();
+           if (this.totalValid) {
+               Intent intent = new Intent(activity, OrderActivity.class);
+               activity.startActivityForResult(intent, 0);
+           }
+           else
+           {
+               Toast.makeText(getActivity(),"请正确填写!",Toast.LENGTH_SHORT);
+           }
        }
+    }
+
+    private void updateTotalPrice()
+    {
+        int amount = Integer.parseInt(amountText.getText().toString());
+        double total = 0;
+        if (buyRadio.isChecked())
+        {
+            //选中了买入
+            total = amount * buyPrice;
+        }
+        else
+        {
+            //选中了卖出
+            total = amount * sellPrice;
+        }
+        totalView.setText(String.format("%.4",total));
     }
 
     public void tryBeginTrade()
@@ -194,8 +268,10 @@ public class TradeFragment extends Fragment implements View.OnClickListener{
             beginTrade();
         }
     }
+
     private void testSearchChoose()
     {
+        this.totalValid = true;
         testExecutePriceText();
         testDate();
         if (obstacleLevel != null)
@@ -214,7 +290,7 @@ public class TradeFragment extends Fragment implements View.OnClickListener{
         {
             valid = false;
         }
-        totalValid |= valid;
+        totalValid &= valid;
         if (!valid)
         {
             //输入不符合规范
@@ -234,7 +310,7 @@ public class TradeFragment extends Fragment implements View.OnClickListener{
             valid = false;
         }
         //整体是否符合规范 判断是否能够查询
-        totalValid |= valid;
+        totalValid &= valid;
         if (!valid) {
             //数字不符合规范;
             obstacleLevel.setText("请正确输入");
@@ -248,7 +324,7 @@ public class TradeFragment extends Fragment implements View.OnClickListener{
         int month = datePicker.getMonth() + 1;
         int day = datePicker.getDayOfMonth();
         Calendar date = Calendar.getInstance();
-        int nowYear =  date.get(Calendar.YEAR);
+        int nowYear = date.get(Calendar.YEAR);
         int nowMonth = date.get(Calendar.MONTH);
         int nowDay = date.get(Calendar.DAY_OF_MONTH);
         if (nowYear > year || nowMonth > month || nowDay > day ||
@@ -258,15 +334,14 @@ public class TradeFragment extends Fragment implements View.OnClickListener{
             valid = false;
             Toast.makeText(getActivity(), "日期必须为今天之后", Toast.LENGTH_SHORT);
         }
-        totalValid |= valid;
+        totalValid &= valid;
     }
-
 
     //开始交易 倒计时
     private void beginTrade()
     {
-        tradeButton.setEnabled(true);
-      count_down_handler = new Handler() {
+        if (count_down_handler == null)
+         count_down_handler = new Handler() {
           @Override
           public void handleMessage(Message message)
           {
@@ -280,49 +355,120 @@ public class TradeFragment extends Fragment implements View.OnClickListener{
               {
                   //倒计时结束 交易按钮不可点击
                   tradeButton.setEnabled(false);
+                  countDownThread.remove();
+                  synchronized (countDownThread)
+                  {
+                      if (!isCountDownAble)
+                      {
+                          for (int i = 0; i < countDownThread.size(); ++i)
+                          {
+                              countDownThread.remove();
+                          }
+                          isCountDownAble = true;
+                      }
+                      else if (countDownThread.size() > 0)
+                      {
+                          tradeButton.setEnabled(true);
+                          Thread thread = countDownThread.element();
+                          thread.start();
+                      }
+                  }
               }
 
           }
       };
 
-        new Thread(){
-            public void run()
-            {
-                Looper.prepare();
-                int count = TRADE_TIME_LIMIT;
-                for(; count > 0; --count)
-                {
-                   sendMessageWithCount(count);
-                    try {
-                        TimeUnit.SECONDS.sleep(1);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+      Thread thread =  new Thread() {
+                public void run() {
+                    Looper.prepare();
+                    int count = TRADE_TIME_LIMIT;
+                    for (; count > 0; --count) {
+                        synchronized (countDownThread) {
+                            if (countDownThread.size() > 1 || isCountDownAble == false) {
+                                break;
+                            }
+
+                        }
+                        sendMessageWithCount(count);
+                        try {
+                            TimeUnit.SECONDS.sleep(1);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    sendMessageWithCount(0);
+                    stopCountDown();
+                    Looper.loop();
+                }
+
+                private void sendMessageWithCount(int count) {
+                    Message mess = new Message();
+                    mess.what = MessageNum.TRADE_COUNT_DOWN;
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("count_down", count);
+                    mess.setData(bundle);
+                    count_down_handler.sendMessage(mess);
+                }
+
+                private void stopCountDown() {
+                    count_down_handler.sendEmptyMessage(MessageNum.TRADE_COUNT_DOWN_END);
+                }
+            };
+
+            if (countDownThread != null) {
+                synchronized (countDownThread) {
+                    if (countDownThread.size() != 0) {
+                        countDownThread.add(thread);
+                    }else
+                    {
+                        this.isCountDownAble = true;
+                        countDownThread.add(thread);
+                        tradeButton.setEnabled(true);
+                        thread.start();
                     }
                 }
-                sendMessageWithCount(count);
-                stopCountDown();
-                Looper.loop();
             }
-
-            private void sendMessageWithCount(int count)
-            {
-                Message mess = new Message();
-                mess.what = MessageNum.TRADE_COUNT_DOWN;
-                Bundle bundle = new Bundle();
-                bundle.putInt("count_down",count);
-                mess.setData(bundle);
-                count_down_handler.sendMessage(mess);
+            else {
+                    countDownThread = new LinkedList<>();
+                    countDownThread.add(thread);
+                    tradeButton.setEnabled(true);
+                    thread.start();
             }
-
-            private void stopCountDown()
-            {
-                count_down_handler.sendEmptyMessage(MessageNum.TRADE_COUNT_DOWN_END);
-            }
-        }.start();
 
     }
 
 
 
+
+    private  void testAmount()
+    {
+        boolean valid = true;
+        try {
+            Integer.parseInt(amountText.getText().toString());
+        }catch (Exception e)
+        {
+            valid = false;
+        }
+        this.totalValid &= valid;
+    }
+
+    public void setSellPrice(double sellPrice)
+    {
+        this.sellPrice = sellPrice;
+    }
+
+    public void setBuyPrice(double buyPrice)
+    {
+        this.buyPrice = buyPrice;
+    }
+
+    public void tryStopCountDown()
+    {
+        synchronized (tradeButton)
+        {
+            this.isCountDownAble = false;
+        }
+    }
 
 }

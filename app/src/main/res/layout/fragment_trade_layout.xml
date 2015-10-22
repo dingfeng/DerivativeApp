@@ -206,6 +206,23 @@
     </EditText>
     </TableRow>
     <TableRow>
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="总额"
+            android:textSize="20sp"
+            android:padding="10dp"
+            />
+        <TextView
+            android:id="@+id/totalPrice"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="等待计算..."
+            android:textSize="20sp"
+            android:padding="10dp"
+            />
+    </TableRow>
+    <TableRow>
         <Button
             android:id= "@+id/tradeButton"
             android:layout_height="wrap_content"
